@@ -1,0 +1,382 @@
+/* ===== ZSCALER LOCAL FIXES ===== */
+
+/* ── 0. FONTS ── */
+/* Import Inter as substitute for GTHaptikFont (commercial), and DM Mono */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+/* Override CSS variables so existing typography classes pick up the new fonts */
+:root {
+  --gt-haptic-font: 'Inter', sans-serif;
+  --font-dm-mono: 'DM Mono', monospace;
+}
+
+/* Apply GTHaptikFont family to all elements that use the var */
+body, html {
+  font-family: var(--gt-haptic-font);
+}
+
+/* ── 0b. WYSIWYG CONTENT TYPOGRAPHY ── */
+/* The hero and page body render content via Wysiwyg components.
+   Their h1/h2/h3/p elements have no direct typography class, so style them here.
+   Sizes mirror the typography-* classes defined in the Tailwind CSS. */
+
+[class*="Wysiwyg_"] h1 {
+  font-size: 4rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.08rem;
+  font-family: var(--gt-haptic-font);
+}
+@media (min-width: 768px) {
+  [class*="Wysiwyg_"] h1 { font-size: 5rem; letter-spacing: -0.1rem; }
+}
+@media (min-width: 1024px) {
+  [class*="Wysiwyg_"] h1 { font-size: 6rem; letter-spacing: -0.12rem; }
+}
+
+[class*="Wysiwyg_"] h2 {
+  font-size: 3.2rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.064rem;
+  font-family: var(--gt-haptic-font);
+}
+@media (min-width: 768px) {
+  [class*="Wysiwyg_"] h2 { font-size: 3.8rem; letter-spacing: -0.076rem; }
+}
+@media (min-width: 1024px) {
+  [class*="Wysiwyg_"] h2 { font-size: 4.8rem; letter-spacing: -0.096rem; }
+}
+
+[class*="Wysiwyg_"] h3 {
+  font-size: 2.4rem;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.048rem;
+  font-family: var(--gt-haptic-font);
+}
+@media (min-width: 768px) {
+  [class*="Wysiwyg_"] h3 { font-size: 2.8rem; }
+}
+@media (min-width: 1024px) {
+  [class*="Wysiwyg_"] h3 { font-size: 3.6rem; }
+}
+
+[class*="Wysiwyg_"] p {
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.5;
+  font-family: var(--gt-haptic-font);
+}
+
+/* Ensure dark-variant Wysiwyg text inherits white colour from parent */
+[class*="Wysiwyg_default-dark"] h1,
+[class*="Wysiwyg_default-dark"] h2,
+[class*="Wysiwyg_default-dark"] h3,
+[class*="Wysiwyg_default-dark"] p {
+  color: inherit;
+}
+
+/* ── 1. ANNOUNCEMENT BANNER – hidden per request ── */
+.announcementBanner_root__cm5Sh {
+  display: none !important;
+}
+
+/* ── 2. META NAV (utility bar) ── */
+.metaNav_root__chNie {
+  width: 100%;
+  background-color: #0d1f4f;
+  padding: 6px 0;
+}
+.metaNav_darkNav__0hVl0 {
+  background-color: #0d1f4f;
+}
+.metaNav_metaNavGrid__8cgWB {
+  width: 100%;
+}
+.metaNav_navContent__V3UuL {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  gap: 8px;
+  min-height: 36px;
+}
+.metaNav_linkWrapper__r0zga {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+.metaNav_linkWrapper__r0zga a {
+  white-space: nowrap;
+}
+.metaNav_linkWrapper__r0zga a span {
+  font-size: 1.2rem !important;
+  padding: 4px 8px !important;
+}
+.metaNav_searchIcon__c9zLs path {
+  fill: #fff;
+}
+.metaNav_submenu__xKI55 {
+  display: none;
+  position: absolute;
+  background: #0d1f4f;
+  z-index: 100;
+  padding: 8px 0;
+  min-width: 180px;
+}
+
+/* ── 3. IMAGES – all downloaded locally, show them ── */
+
+/* Platform diagram: show at full width, capped height on mobile */
+img.w-full.h-full.object-contain {
+  max-height: 500px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+div:has(> img.w-full.h-full.object-contain) {
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
+/* News / event card images */
+img.min-h-\[200px\] {
+  min-height: 200px;
+  max-height: 200px;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Customer success story full-bleed images */
+img.h-full.object-cover {
+  max-height: 300px;
+  min-height: 0;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Trust badge / award images */
+img.max-h-full.max-w-full {
+  max-height: 60px;
+  width: auto;
+  display: inline-block !important;
+}
+
+/* AI section icon images */
+img[width="100"][height="100"] {
+  opacity: 1;
+  max-height: 100px;
+  min-height: 0;
+  overflow: visible;
+  display: block;
+}
+.w-full.h-100 {
+  max-height: 120px;
+  min-height: 0;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Partner logos */
+img.my-0.mx-auto {
+  max-height: 36px;
+  min-height: 0 !important;
+}
+
+/* Form loader spinner */
+img.form-loader {
+  display: none;
+}
+
+/* ── 4. CTA BUTTONS ── */
+.cta_root___bSOJ {
+  display: inline-block;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.cta_root___bSOJ:hover {
+  opacity: 0.85;
+}
+.cta_btnDark__U__lq {
+  color: #fff;
+}
+.cta_btnPrimary__j_EeL {
+  background-color: #0047ff;
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 4px;
+}
+.cta_link__TGJTr {
+  text-decoration: underline;
+  background: none !important;
+}
+
+/* ── 5. CUSTOM SWIPER ── */
+.customSwiper_root__2v_Eo .swiper {
+  width: 100% !important;
+  overflow: hidden;
+}
+.customSwiper_controlsBarContainer___X2Ae {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+.customSwiper_leftArrow___Uani,
+.customSwiper_scrollArrow__JIQD_ {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+}
+.customSwiper_disabled__NlM6G {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* ── 6. VIDEO COMPONENT ── */
+.videoComponent_root__mMY0L {
+  position: relative;
+  width: 100%;
+}
+.videoComponent_videoComponent__2JOlR {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.videoComponent_videoContainer__8FGSz {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.videoComponent_videoPlayer__W1hoN {
+  width: 100%;
+  display: block;
+}
+
+/* ── 7. MARKETO FORM ── */
+.marketoForm_parentRoot__79zYl {
+  width: 100%;
+}
+.marketoForm_root__Wkgni {
+  width: 100%;
+}
+.marketoForm_variant_footer__jwLCq {
+  background: transparent;
+}
+
+/* ── 8. CTA MODULE ── */
+.cta_module_root__zHkkW {
+  width: 100%;
+  padding: 40px 0;
+}
+.cta_module_content__ws5_h {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.cta_module_ctaWrapper__JCLrt {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+/* ── 9. PARTNERS MODULE ── */
+.partners_module_root__CIbqu {
+  width: 100%;
+}
+.partners_module_ctaWrapper__sa9lp {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+/* Partner logos now available locally — restore normal layout */
+.partners_module_root__CIbqu .flex.justify-center.items-center {
+  min-height: 60px;
+}
+/* Remove bottom margin from the text paragraph since logos are hidden */
+.partners_module_root__CIbqu p[role="heading"] {
+  margin-bottom: 16px !important;
+}
+
+/* ── 10. STATS BOTTOM CTA ── */
+.stats_cards_module_bottomCTA__2kiYW {
+  width: 100%;
+  text-align: center;
+  margin-top: 32px;
+}
+
+/* ── 11. HERO & CARD SLIDERS ── */
+.hero_slider_root__Oa97N,
+.card_slider_root__8DCWd,
+.customer_success_story_slider_root__l6wda {
+  width: 100%;
+  position: relative;
+}
+
+/* ── 12. HEADER STICKY ── */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #0d1f4f;
+}
+
+/* ── FIX: Body height clamp from Cloudflare challenge CSS breaks page bg ── */
+/* The Cloudflare placeholder CSS sets body { height:100vh } which causes
+   overflow areas to show as black. Override to let body grow naturally. */
+body {
+  height: auto !important;
+  min-height: 100vh !important;
+  background-color: #fff !important;
+}
+html {
+  background-color: #fff;
+}
+
+/* ── 13. CUSTOMER SUCCESS STORY SLIDER ── */
+/* The right-column image swiper has no content (broken images) — collapse it */
+.customer_success_story_slider_root__l6wda .col-span-12.overflow-hidden .swiper,
+.customer_success_story_slider_root__l6wda .order-none .swiper {
+  max-height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* ── 14. SWIPER WIDTH FIX (news/card slider) ── */
+/* Swiper.js sets inline width as a fraction — override to full width */
+.customSwiper_root__2v_Eo .swiper {
+  width: 100% !important;
+}
+
+/* ── 15. HIDE EMPTY SPACES FROM COLLAPSED IMAGES ── */
+/* When an img container has been collapsed by JS, make parent not reserve space */
+[style*="height:0"] {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* ── 16. TRUST BADGE CARDS — images now local, show them ── */
+.default-grid .col-span-2 img.max-h-full,
+.default-grid .col-span-1 img.max-h-full {
+  display: inline-block !important;
+  max-height: 60px;
+  width: auto;
+}
